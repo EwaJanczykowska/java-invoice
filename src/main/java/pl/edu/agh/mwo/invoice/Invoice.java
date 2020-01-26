@@ -36,7 +36,7 @@ public class Invoice {
 	public BigDecimal getTotal() {
         BigDecimal sumTotal = BigDecimal.ZERO;
         for (Product product : products) {
-            sumTotal = sumTotal.add(product.getPrice());
+            sumTotal = sumTotal.add(product.getPriceWithTax());
         }
         return sumTotal;
     }
