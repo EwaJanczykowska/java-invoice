@@ -30,6 +30,10 @@ public class Invoice {
 	}
 
 	public BigDecimal getTotal() {
-		return BigDecimal.ZERO;
-	}
+        BigDecimal sumTotal = BigDecimal.ZERO;
+        for (Product product : products) {
+            sumTotal = sumTotal.add(product.getPrice());
+        }
+        return sumTotal;
+    }
 }
