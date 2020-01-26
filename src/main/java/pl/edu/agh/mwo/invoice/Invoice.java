@@ -26,7 +26,11 @@ public class Invoice {
 	}
 
 	public BigDecimal getTax() {
-		return BigDecimal.ZERO;
+		BigDecimal sumTax = BigDecimal.ZERO;
+		for (Product product : products) {
+			sumTax = sumTax.add(product.getTaxValue());
+		}
+		return sumTax;
 	}
 
 	public BigDecimal getTotal() {
