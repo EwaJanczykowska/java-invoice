@@ -108,7 +108,7 @@ public class InvoiceTest {
     @Test
     public void testInvoiceHasNumber() {
         int number = invoice.getNumber();
-        Assert.assertTrue(number >0);
+        Assert.assertTrue(number > 0);
     }
 
     @Test
@@ -130,5 +130,30 @@ public class InvoiceTest {
         int number = invoice.getNumber();
         int number2 = invoice.getNumber();
         Assert.assertEquals(number, number2);
+    }
+
+    @Test
+    public void testPrintingEmptyInvoice() {
+        String printedInvoice = invoice.print();
+
+        String expected = "Faktura nr: " + invoice.getNumber() + "\n" +
+                "Liczba pozycji: 0";
+        Assert.assertEquals(expected, printedInvoice);
+    }
+
+    @Test
+    public void testPrintingInvoiceWithProducts() {
+        // price with tax: 108
+        invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("100")), 3);
+        // price with tax: 12.30
+        invoice.addProduct(new OtherProduct("Chipsy", new BigDecimal("10")));
+
+        String printedInvoice = invoice.print();
+
+        String expected = "Faktura nr: " + invoice.getNumber() + "\n" +
+                "Maslo 3 108.00\n" +
+                "Chipsy 1 12.30\n" +
+                "Liczba pozycji: 2";
+        Assert.assertEquals(expected, printedInvoice);
     }
 }
