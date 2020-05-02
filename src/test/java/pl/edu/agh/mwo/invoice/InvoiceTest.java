@@ -6,8 +6,6 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import pl.edu.agh.mwo.invoice.Invoice;
 import pl.edu.agh.mwo.invoice.product.DairyProduct;
 import pl.edu.agh.mwo.invoice.product.OtherProduct;
 import pl.edu.agh.mwo.invoice.product.Product;
@@ -154,6 +152,20 @@ public class InvoiceTest {
                 "Maslo 3 108.00\n" +
                 "Chipsy 1 12.30\n" +
                 "Liczba pozycji: 2";
+        Assert.assertEquals(expected, printedInvoice);
+    }
+
+    @Test
+    public void testAddingDuplicateOfProduct() {
+        Product product = new OtherProduct("Chipsy", new BigDecimal("10"));
+        invoice.addProduct(product);
+        invoice.addProduct(product);
+
+        String printedInvoice = invoice.print();
+
+        String expected = "Faktura nr: " + invoice.getNumber() + "\n" +
+                "Chipsy 2 12.30\n" +
+                "Liczba pozycji: 1";
         Assert.assertEquals(expected, printedInvoice);
     }
 }
